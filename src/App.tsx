@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Provider } from 'react-redux';
-import { Plus, Database, CheckCircle, AlertCircle, BarChart3, Table, Calendar, Mail, FileText, MessageCircle, Eye } from 'lucide-react';
+import { Plus, Database, CheckCircle, AlertCircle, BarChart3, Table, Calendar, Mail, FileText, MessageCircle, Eye, Code } from 'lucide-react';
 import { store } from './store/store';
 import { useAppDispatch, useAppSelector } from './hooks/useRedux';
 import { addItem, updateItem, deleteItem } from './store/dataSlice';
@@ -15,6 +15,7 @@ import EmailSystem from './components/EmailSystem';
 import DynamicFormsSystem from './components/DynamicFormsSystem';
 import ChatSystem from './components/ChatSystem';
 import VisualizeSystem from './components/VisualizeSystem';
+import ComponentsLibrary from './components/ComponentsLibrary';
 import { DataItem, Task } from './types';
 
 const AppContent: React.FC = () => {
@@ -25,7 +26,7 @@ const AppContent: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<DataItem | null>(null);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'table' | 'gantt' | 'email' | 'forms' | 'chat' | 'visualize'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'table' | 'gantt' | 'email' | 'forms' | 'chat' | 'visualize' | 'components'>('dashboard');
   const [notification, setNotification] = useState<{
     message: string;
     type: 'success' | 'error';
@@ -136,6 +137,7 @@ const AppContent: React.FC = () => {
     { id: 'forms', label: 'Forms', icon: FileText },
     { id: 'chat', label: 'Chat', icon: MessageCircle },
     { id: 'visualize', label: 'Visualize', icon: Eye },
+    { id: 'components', label: 'Components', icon: Code },
   ];
 
   const getModalTitle = () => {
@@ -153,7 +155,7 @@ const AppContent: React.FC = () => {
   };
 
   const shouldShowAddButton = () => {
-    return activeTab !== 'email' && activeTab !== 'forms' && activeTab !== 'chat' && activeTab !== 'visualize';
+    return activeTab !== 'email' && activeTab !== 'forms' && activeTab !== 'chat' && activeTab !== 'visualize' && activeTab !== 'components';
   };
 
   return (
@@ -220,6 +222,8 @@ const AppContent: React.FC = () => {
           <ChatSystem />
         ) : activeTab === 'visualize' ? (
           <VisualizeSystem />
+        ) : activeTab === 'components' ? (
+          <ComponentsLibrary />
         ) : activeTab === 'gantt' ? (
           <GanttChart
             tasks={tasks}
