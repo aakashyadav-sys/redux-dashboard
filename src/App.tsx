@@ -16,6 +16,7 @@ import DynamicFormsSystem from './components/DynamicFormsSystem';
 import ChatSystem from './components/ChatSystem';
 import VisualizeSystem from './components/VisualizeSystem';
 import ComponentsLibrary from './components/ComponentsLibrary';
+import KanbanBoard from './components/KanbanBoard';
 import { DataItem, Task } from './types';
 
 const AppContent: React.FC = () => {
@@ -26,7 +27,7 @@ const AppContent: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<DataItem | null>(null);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'table' | 'gantt' | 'email' | 'forms' | 'chat' | 'visualize' | 'components'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'table' | 'gantt' | 'email' | 'forms' | 'chat' | 'visualize' | 'components' | 'kanban'>('dashboard');
   const [notification, setNotification] = useState<{
     message: string;
     type: 'success' | 'error';
@@ -138,6 +139,7 @@ const AppContent: React.FC = () => {
     { id: 'chat', label: 'Chat', icon: MessageCircle },
     { id: 'visualize', label: 'Visualize', icon: Eye },
     { id: 'components', label: 'Components', icon: Code },
+    { id: 'kanban', label: 'Kanban', icon: BarChart3 },
   ];
 
   const getModalTitle = () => {
@@ -155,7 +157,7 @@ const AppContent: React.FC = () => {
   };
 
   const shouldShowAddButton = () => {
-    return activeTab !== 'email' && activeTab !== 'forms' && activeTab !== 'chat' && activeTab !== 'visualize' && activeTab !== 'components';
+    return activeTab !== 'email' && activeTab !== 'forms' && activeTab !== 'chat' && activeTab !== 'visualize' && activeTab !== 'components' && activeTab !== 'kanban';
   };
 
   return (
@@ -224,6 +226,8 @@ const AppContent: React.FC = () => {
           <VisualizeSystem />
         ) : activeTab === 'components' ? (
           <ComponentsLibrary />
+        ) : activeTab === 'kanban' ? (
+          <KanbanBoard />
         ) : activeTab === 'gantt' ? (
           <GanttChart
             tasks={tasks}

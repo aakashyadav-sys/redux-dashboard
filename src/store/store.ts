@@ -5,6 +5,7 @@ import emailReducer from './emailSlice';
 import dynamicFormsReducer from './dynamicFormsSlice';
 import chatReducer from './chatSlice';
 import visualizeReducer from './visualizeSlice';
+import kanbanReducer from './kanbanSlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
     email: emailReducer,
     dynamicForms: dynamicFormsReducer,
     chat: chatReducer,
-    visualize: visualizeReducer
+    visualize: visualizeReducer,
+    kanban: kanbanReducer
   }
 });
 
